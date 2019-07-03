@@ -1,0 +1,55 @@
+day1
+
+有效回文串：
+    题目：给定一个字符串，验证它是否是回文串，只考虑字母和数字字符，可以忽略字母的大小写。
+    
+    题解：
+        重点信息： 1：回文
+                 2：只考虑字母和数字字符
+                 3：忽略字母的大小写
+    
+    注意：
+        空字符串有效
+    
+    解题思路：由信息1：建立两个指针
+            >>>int left=0,right=s.size()-1;
+            
+            由信息2：新建一个函数来判断是否是有效字符
+            >>>bool isValidchar(char &ch){
+                      if((ch>='a'&&ch<='z')||(ch>='A'&&ch<='Z')||(ch>='0'&&ch<='9'))
+                          return true;
+                      return false;
+               }
+               
+            由信息3：利用大小写字母的ascii的数值相差为32的特性,来判断前后字符是否一致
+            >>>(s[left]+32-'a')%32!=(s[right]+32-'a')%32
+            
+     
+            
+解：
+class Solution {
+public:
+    bool isPalindrome(string s) {
+        int left=0,right=s.size()-1;
+        while(left<right){
+            if(!isValidchar(s[left]))
+                ++left;
+            else if(!isValidchar(s[right]))
+                --right;
+            else if((s[left]+32-'a')%32!=(s[right]+32-'a')%32)
+                return false;
+            else{
+                ++left;
+                --right;
+            }
+        }
+        return true;
+    }
+    
+    bool isValidchar(char &ch){
+        if((ch>='a'&&ch<='z')||(ch>='A'&&ch<='Z')||(ch>='0'&&ch<='9'))
+            return true;
+        return false;
+    }
+    
+};
